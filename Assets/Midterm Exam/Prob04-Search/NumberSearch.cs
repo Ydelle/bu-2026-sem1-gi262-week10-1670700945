@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using UnityEngine;
+
 
 namespace MidtermExam.Prob04
 {
@@ -17,8 +20,22 @@ namespace MidtermExam.Prob04
         /// </remarks>
         public int AS04_SequentialSearch(int[] values, int target)
         {
+            //O(n) กรณีที่วนจนครบตัวสุดท้าย ต้องตรวจสอบทุกช่อง
             // TODO: เขียนคำตอบแทนคำสั่ง throw ด้านล่าง
-            throw new NotImplementedException();
+            if (values == null)
+            {
+                return -1;
+            }
+            int index = -1;
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (values[i] == target)
+                {
+                    index = i;
+                }
+            }
+
+            return index;
         }
 
         /// <summary>ข้อ 04.2: ค้นหาตัวเลขด้วย Binary Search โดยลดช่วงค้นหาประมาณครึ่งหนึ่งต่อขั้น</summary>
@@ -44,7 +61,33 @@ namespace MidtermExam.Prob04
             //    ต้องตัดตำแหน่งที่ตรวจแล้วออก เพื่อให้ช่วงเล็กลงและไม่เกิดการวนซ้ำไม่จบ
             // 4. ถ้าช่วงค้นหาหมดและยังไม่พบ ให้คืนค่าที่โจทย์กำหนดสำหรับกรณีไม่พบ
             // ลองตรวจกรณีสมาชิกเดียว สองสมาชิก เป้าหมายอยู่หัว/ท้าย และเป้าหมายอยู่นอกช่วงค่า
-            throw new NotImplementedException();
+
+            //O(log n) แบ่งครึ่งนึงทุกรอบ
+            int index = -1;
+            int left = 0;
+            int right = sortedValues.Length - 1;
+            if (sortedValues == null)
+            {
+                return -1;
+            }
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (sortedValues[mid] == target)
+                {
+                    index = mid;
+                }
+                else if (sortedValues[mid] < target)
+                {
+                    left = mid + 1;
+                }
+                else if (sortedValues[mid] > target)
+                {
+                    right = mid - 1;
+                }
+            }
+
+            return index;
         }
     }
 }
